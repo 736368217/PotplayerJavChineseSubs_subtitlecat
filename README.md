@@ -1,10 +1,10 @@
 # PotPlayer SubtitleCat 字幕搜索插件
 
-[![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://potplayer.daum.net/)
+[![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://potplayer.tv/)
 [![Language](https://img.shields.io/badge/language-ActionScript-orange)](#)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-为 [PotPlayer](https://potplayer.daum.net/) 提供的在线字幕搜索与下载插件，数据源来自 [SubtitleCat.com](https://www.subtitlecat.com)，**无需注册，无需 API 密钥，开箱即用**。
+为 [PotPlayer](https://potplayer.tv/) 提供的在线字幕搜索与下载插件，数据源来自 [SubtitleCat.com](https://www.subtitlecat.com)，**无需注册，无需 API 密钥，开箱即用**。
 
 ---
 
@@ -37,7 +37,7 @@
 
 ### 1. 确保 PotPlayer 已更新至最新版本
 
-从 [PotPlayer 官网](https://potplayer.daum.net/) 下载并安装最新版本。
+从 [PotPlayer 官网](https://potplayer.tv/) 下载并安装最新版本。
 
 ### 2. 下载插件
 
@@ -50,6 +50,9 @@
 
 ### 3. 复制到 PotPlayer 插件目录
 
+![1](./image/QQ20260709-115100.png)
+![2](./image/QQ20260709-115134.png)
+
 打开 PotPlayer，按 `F5` 打开 **选项** 面板，依次进入：
 
 ```
@@ -60,13 +63,15 @@
 
 ### 4. 验证安装
 
+![3](./image/QQ20260709-115423.png)
+
 在 PotPlayer 中打开任意视频，右键选择：
 
 ```
-字幕 -> 在线字幕搜索 -> 下载字幕
+字幕 -> 在线字幕搜索 -> 在线字幕搜索设置
 ```
 
-在搜索列表中看到 **SubtitleCat** 即表示安装成功。点击"再次搜索"可刷新列表。
+点击"再次搜索"可刷新列表。在搜索列表中看到 **SubtitleCat** 即表示安装成功。
 
 ---
 
@@ -74,6 +79,9 @@
 
 ### 基本搜索
 
+![4](./image/115247.png)
+
+![5](./image/QQ20260709-115500.png)
 1. 使用 PotPlayer 播放视频文件
 2. 右键播放画面，选择 **字幕** -> **在线字幕搜索** -> **下载字幕**
 3. 插件会自动根据文件名搜索匹配的字幕
@@ -214,7 +222,7 @@
 
 - 本项目基于 [Exhen/PotplayerChineseSubs_assrt](https://github.com/Exhen/PotplayerChineseSubs_assrt) 的插件框架开发
 - 字幕数据来源于 [SubtitleCat.com](https://www.subtitlecat.com)，感谢该网站提供的免费字幕服务
-- 感谢 [Simon7612](https://github.com/Simon7612) 的 SubtitleCat 集成贡献
+- 感谢 [Simon7612](https://github.com/Simon7612) 的贡献
 
 ---
 
@@ -223,5 +231,3 @@
 本项目采用 [MIT License](LICENSE) 开源协议。
 
 ---
-
-**Enjoy watching with subtitles!**
