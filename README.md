@@ -4,7 +4,7 @@
 [![Language](https://img.shields.io/badge/language-ActionScript-orange)](#)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-为 [PotPlayer](https://potplayer.tv/) 提供的在线字幕搜索与下载插件，数据源来自 [SubtitleCat.com](https://www.subtitlecat.com)，去除文件名中的无效字符，优先选择中文字幕**无需注册，无需 API 密钥，开箱即用**。
+为 [PotPlayer](https://potplayer.tv/) 提供的在线字幕搜索与下载插件，数据源来自 [SubtitleCat.com](https://www.subtitlecat.com)，去除文件名中的无效字符，优先选择中文字幕。**无需注册，无需 API 密钥，开箱即用**。
 
 ---
 
