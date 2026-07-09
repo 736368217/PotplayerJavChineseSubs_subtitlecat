@@ -50,8 +50,8 @@
 
 ### 3. 复制到 PotPlayer 插件目录
 
-![1](./image/QQ20260709-115100.png)
-![2](./image/QQ20260709-115134.png)
+![1](https://cdn.jsdelivr.net/gh/736368217/PotplayerJavChineseSubs_subtitlecat@main/image/QQ20260709-115100.png)
+![2](https://cdn.jsdelivr.net/gh/736368217/PotplayerJavChineseSubs_subtitlecat@main/image/QQ20260709-115134.png)
 
 打开 PotPlayer，按 `F5` 打开 **选项** 面板，依次进入：
 
@@ -63,7 +63,7 @@
 
 ### 4. 验证安装
 
-![3](./image/QQ20260709-115423.png)
+![3](https://cdn.jsdelivr.net/gh/736368217/PotplayerJavChineseSubs_subtitlecat@main/image/QQ20260709-115423.png)
 
 在 PotPlayer 中打开任意视频，右键选择：
 
@@ -79,9 +79,10 @@
 
 ### 基本搜索
 
-![4](./image/115247.png)
+![4](https://cdn.jsdelivr.net/gh/736368217/PotplayerJavChineseSubs_subtitlecat@main/image/115247.png)
 
-![5](./image/QQ20260709-115500.png)
+
+![5](https://cdn.jsdelivr.net/gh/736368217/PotplayerJavChineseSubs_subtitlecat@main/image/QQ20260709-115500.png)
 1. 使用 PotPlayer 播放视频文件
 2. 右键播放画面，选择 **字幕** -> **在线字幕搜索** -> **下载字幕**
 3. 插件会自动根据文件名搜索匹配的字幕
