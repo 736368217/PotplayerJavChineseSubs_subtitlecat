@@ -194,17 +194,87 @@ bool IsVideoExtension(string ext)
 	       ext == "m4v" || ext == "rm" || ext == "ogm" || ext == "ogv";
 }
 
+// Extract JAV code pattern: 2-5 uppercase letters + optional hyphen + 2-5 digits
+// Returns "LETTERS-DIGITS" format, or empty string if no pattern found
+string ExtractJAVCode(string str)
+{
+	int len = str.length();
+	int i = 0;
+
+	while (i < len)
+	{
+		string ch = str.substr(i, 1);
+		if (ch < "A" || ch > "Z")
+		{
+			i++;
+			continue;
+		}
+
+		int letterStart = i;
+		int letterCount = 0;
+		while (i < len)
+		{
+			ch = str.substr(i, 1);
+			if (ch < "A" || ch > "Z") break;
+			letterCount++;
+			i++;
+		}
+
+		if (letterCount < 2 || letterCount > 5)
+		{
+			continue;
+		}
+
+		if (i < len && str.substr(i, 1) == "-")
+		{
+			i++;
+		}
+
+		if (i >= len) continue;
+		ch = str.substr(i, 1);
+		if (ch < "0" || ch > "9") continue;
+
+		int digitStart = i;
+		int digitCount = 0;
+		while (i < len)
+		{
+			ch = str.substr(i, 1);
+			if (ch < "0" || ch > "9") break;
+			digitCount++;
+			i++;
+		}
+
+		if (digitCount >= 2 && digitCount <= 5)
+		{
+			return str.substr(letterStart, letterCount) + "-" + str.substr(digitStart, digitCount);
+		}
+	}
+
+	return "";
+}
+
 string CleanTitle(string title)
 {
-	// Remove leading website prefix like "xxx.com@" or "xxx.net@"
-	int atPos = title.findFirst("@");
-	if (atPos >= 0 && atPos < title.length() - 1)
+	// Remove [...] brackets and their content (e.g. [activehlj.com], [4K])
+	int bracketStart = 0;
+	while ((bracketStart = title.findFirst("[", bracketStart)) >= 0)
 	{
-		string beforeAt = title.substr(0, atPos);
-		if (beforeAt.findFirst(".") >= 0 && beforeAt.length() <= 30)
+		int bracketEnd = title.findFirst("]", bracketStart);
+		if (bracketEnd >= 0)
 		{
-			title = title.substr(atPos + 1);
+			title = title.substr(0, bracketStart) + title.substr(bracketEnd + 1);
 		}
+		else
+		{
+			bracketStart++;
+		}
+	}
+
+	// Remove website prefix (everything before and including @)
+	int atPos = title.findFirst("@");
+	if (atPos >= 0)
+	{
+		title = title.substr(atPos + 1);
 	}
 
 	// Remove file extension
@@ -224,9 +294,13 @@ string CleanTitle(string title)
 		}
 	}
 
-	// Remove trailing resolution/quality tag (like -4K, -720p, -1080p, -FHD)
+	// Remove trailing resolution/quality tags (prefixed with _ or -)
 	array<string> qualityTags =
 	{
+		"_4K", "_4k", "_2K", "_2k", "_8K", "_8k",
+		"_720p", "_1080p", "_2160p", "_480p", "_360p",
+		"_HD", "_hd", "_FHD", "_fhd", "_UHD", "_uhd",
+		"_SD", "_sd",
 		"-4K", "-4k", "-2K", "-2k", "-8K", "-8k",
 		"-720p", "-1080p", "-2160p", "-480p", "-360p",
 		"-HD", "-hd", "-FHD", "-fhd", "-UHD", "-uhd",
@@ -252,6 +326,27 @@ string CleanTitle(string title)
 		}
 	}
 
+	// Clean trailing _ and -
+	while (title.length() > 0)
+	{
+		string lastCh = title.substr(title.length() - 1, 1);
+		if (lastCh == "_" || lastCh == "-")
+		{
+			title = title.substr(0, title.length() - 1);
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	// Try to extract JAV code (XXXX-### or XXXX###)
+	string javCode = ExtractJAVCode(title);
+	if (!javCode.empty())
+	{
+		return javCode;
+	}
+
 	return title;
 }
 
@@ -262,12 +357,12 @@ string GetTitle()
 
 string GetVersion()
 {
-	return "1.0";
+	return "1.1";
 }
 
 string GetDesc()
 {
-	return "SubtitleCat.com 字幕搜索插件 - 无需API密钥";
+	return "SubtitleCat.com - JAV中文字幕搜索";
 }
 
 string GetLoginTitle()
@@ -412,9 +507,10 @@ array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 	}
 
 	// Check each detail page for Chinese subtitle availability
+	int count = 0;
 	for (int i = 0; i < candidates.size(); i++)
 	{
-		if (ret.size() >= 20) break;
+		if (count >= 20) break;
 
 		string detailURL = SITE_URL + "/" + string(candidates[i]["id"]);
 		string detailHtml = HostUrlGetString(detailURL);
@@ -444,6 +540,7 @@ array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 		item["url"] = SITE_URL + "/" + string(candidates[i]["id"]);
 
 		ret.insertLast(item);
+		count++;
 	}
 
 	return ret;
