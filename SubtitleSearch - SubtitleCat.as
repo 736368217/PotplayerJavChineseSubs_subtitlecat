@@ -378,8 +378,10 @@ array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 
 	if (html.empty()) return ret;
 
-	int searchPos = 0;
+	// Collect all candidate hrefs and titles
+	array<dictionary> candidates;
 
+	int searchPos = 0;
 	while (true)
 	{
 		searchPos = html.findFirst("href=\"subs/", searchPos);
@@ -401,20 +403,47 @@ array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 		string subTitle = html.substr(titleStart, titleEnd - titleStart);
 		subTitle = HtmlSpecialCharsDecode(subTitle);
 
+		dictionary candidate;
+		candidate["id"] = href;
+		candidate["title"] = subTitle;
+		candidates.insertLast(candidate);
+
+		searchPos = hrefEnd + 1;
+	}
+
+	// Check each detail page for Chinese subtitle availability
+	for (int i = 0; i < candidates.size(); i++)
+	{
+		if (ret.size() >= 20) break;
+
+		string detailURL = SITE_URL + "/" + string(candidates[i]["id"]);
+		string detailHtml = HostUrlGetString(detailURL);
+
+		if (detailHtml.empty()) continue;
+
+		string bestLang = "";
+		if (detailHtml.findFirst("-zh-CN.srt") >= 0)
+		{
+			bestLang = "zh-CN";
+		}
+		else if (detailHtml.findFirst("-zh-TW.srt") >= 0)
+		{
+			bestLang = "zh-TW";
+		}
+
+		if (bestLang.empty()) continue;
+
 		string format = "srt";
 
 		dictionary item;
-		item["id"] = href;
-		item["title"] = subTitle;
-		item["lang"] = "zh-CN";
+		item["id"] = string(candidates[i]["id"]);
+		item["title"] = string(candidates[i]["title"]);
+		item["lang"] = bestLang;
 		item["format"] = format;
-		item["fileName"] = subTitle + "." + format;
-		item["url"] = SITE_URL + "/" + href;
+		item["fileName"] = string(candidates[i]["title"]) + "." + format;
+		item["url"] = SITE_URL + "/" + string(candidates[i]["id"]);
 
 		ret.insertLast(item);
-
-		if (ret.size() >= 60) break;
-		searchPos = hrefEnd + 1;
 	}
 
 	return ret;
@@ -429,9 +458,7 @@ string SubtitleDownload(string id)
 
 	if (html.empty()) return "";
 
-	// Collect all .srt download links, prefer Chinese
 	string bestSrtUrl = "";
-	string anySrtUrl = "";
 
 	int hrefPos = 0;
 	while (true)
@@ -446,12 +473,7 @@ string SubtitleDownload(string id)
 		string downloadPath = html.substr(urlStart, urlEnd - urlStart);
 		if (downloadPath.findFirst(".srt") >= 0)
 		{
-			if (anySrtUrl.empty())
-			{
-				anySrtUrl = SITE_URL + downloadPath;
-			}
-
-			if (downloadPath.findFirst("zh-CN") >= 0 || downloadPath.findFirst("zh-TW") >= 0)
+			if (downloadPath.findFirst("-zh-CN.srt") >= 0 || downloadPath.findFirst("-zh-TW.srt") >= 0)
 			{
 				bestSrtUrl = SITE_URL + downloadPath;
 				break;
@@ -463,53 +485,6 @@ string SubtitleDownload(string id)
 	if (!bestSrtUrl.empty())
 	{
 		return HostUrlGetString(bestSrtUrl);
-	}
-
-	if (!anySrtUrl.empty())
-	{
-		return HostUrlGetString(anySrtUrl);
-	}
-
-	// Method 2: parse orig file from translate_from_server_folder
-	int tfPos = html.findFirst("translate_from_server_folder(");
-	if (tfPos >= 0)
-	{
-		int parenStart = tfPos + 28;
-		int parenEnd = html.findFirst(")", parenStart);
-		if (parenEnd >= 0)
-		{
-			string args = html.substr(parenStart, parenEnd - parenStart);
-
-			int firstQuote = args.findFirst("'");
-			if (firstQuote >= 0)
-			{
-				int firstEnd = args.findFirst("'", firstQuote + 1);
-				if (firstEnd >= 0)
-				{
-					int secondQuote = args.findFirst("'", firstEnd + 1);
-					if (secondQuote >= 0)
-					{
-						int secondEnd = args.findFirst("'", secondQuote + 1);
-						if (secondEnd >= 0)
-						{
-							string fileName = args.substr(secondQuote + 1, secondEnd - secondQuote - 1);
-
-							int thirdQuote = args.findFirst("'", secondEnd + 1);
-							if (thirdQuote >= 0)
-							{
-								int thirdEnd = args.findFirst("'", thirdQuote + 1);
-								if (thirdEnd >= 0)
-								{
-									string folderPath = args.substr(thirdQuote + 1, thirdEnd - thirdQuote - 1);
-									string downloadURL = SITE_URL + folderPath + fileName;
-									return HostUrlGetString(downloadURL);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
 	}
 
 	return "";
