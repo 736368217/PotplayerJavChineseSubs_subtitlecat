@@ -228,3 +228,12 @@
 本项目采用 [MIT License](LICENSE) 开源协议。
 
 ---
+## Star History
+
+<a href="https://www.star-history.com/?repos=736368217%2FPotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&theme=dark&legend=top-left&sealed_token=hyEClInJC8mXJ5CGPuZpbF3HzMijm4c615eVZW3yv2sa_Rc2AKHkQHBEEoKJiqTKftz7PUgAPE1esoLUDBe5q0dPkVvHG2UMw6dcARCKATZB-ti7fsqpKhvQoKK5SD4hofTWkkZhM7nOZ0-tdZfIDUX6bsoA3ZUEqrYyxgIaoU2sGMXATU5VjUWCrugE" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left&sealed_token=hyEClInJC8mXJ5CGPuZpbF3HzMijm4c615eVZW3yv2sa_Rc2AKHkQHBEEoKJiqTKftz7PUgAPE1esoLUDBe5q0dPkVvHG2UMw6dcARCKATZB-ti7fsqpKhvQoKK5SD4hofTWkkZhM7nOZ0-tdZfIDUX6bsoA3ZUEqrYyxgIaoU2sGMXATU5VjUWCrugE" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left&sealed_token=hyEClInJC8mXJ5CGPuZpbF3HzMijm4c615eVZW3yv2sa_Rc2AKHkQHBEEoKJiqTKftz7PUgAPE1esoLUDBe5q0dPkVvHG2UMw6dcARCKATZB-ti7fsqpKhvQoKK5SD4hofTWkkZhM7nOZ0-tdZfIDUX6bsoA3ZUEqrYyxgIaoU2sGMXATU5VjUWCrugE" />
+ </picture>
+</a>
