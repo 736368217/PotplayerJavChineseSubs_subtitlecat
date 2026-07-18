@@ -1,10 +1,12 @@
 /*
-	subtitle search by SubtitleCat.com
-	Based on subtitlecat.com website parsing
+	subtitle search by SubtitleCat.com and Xunlei
+	Based on subtitlecat.com website parsing and Xunlei's public subtitle endpoint
 	No API key required
 */
 
 string SITE_URL = "https://www.subtitlecat.com";
+string XUNLEI_API_URL = "https://api-shoulei-ssl.xunlei.com/oracle/subtitle";
+string XUNLEI_ID_PREFIX = "xunlei:";
 
 // Language code mapping from subtitlecat.com language names
 dictionary LangMap;
@@ -357,7 +359,7 @@ string GetTitle()
 
 string GetVersion()
 {
-	return "1.1";
+	return "3.0";
 }
 
 string GetDesc()
@@ -438,6 +440,58 @@ string SubtitleWebSearch(string MovieFileName, dictionary MovieMetaData)
 	return finalURL;
 }
 
+void AppendXunleiResults(string title, array<dictionary> &ret)
+{
+	string api = XUNLEI_API_URL + "?gcid=&cid=&name=" + HostUrlEncode(title);
+	string json = HostUrlGetString(api);
+	JsonReader reader;
+	JsonValue root;
+
+	if (!reader.parse(json, root) || !root.isObject()) return;
+
+	JsonValue data = root["data"];
+	if (!data.isArray()) return;
+
+	for (int i = 0, len = data.size(); i < len && i < 20; i++)
+	{
+		JsonValue subtitle = data[i];
+		if (!subtitle.isObject()) continue;
+
+		JsonValue urlValue = subtitle["url"];
+		JsonValue extValue = subtitle["ext"];
+		if (!urlValue.isString() || !extValue.isString()) continue;
+
+		string downloadURL = urlValue.asString();
+		string format = extValue.asString();
+		if (downloadURL.empty() || format.empty()) continue;
+
+		string name = title;
+		JsonValue nameValue = subtitle["name"];
+		if (nameValue.isString() && !nameValue.asString().empty())
+		{
+			name = nameValue.asString();
+		}
+
+		string extension = "." + format;
+		if (name.length() > extension.length() &&
+			name.substr(name.length() - extension.length()) == extension)
+		{
+			name = name.substr(0, name.length() - extension.length());
+		}
+
+		string displayName = name + "（迅雷）";
+
+		dictionary item;
+		item["id"] = XUNLEI_ID_PREFIX + downloadURL;
+		item["title"] = displayName;
+		item["lang"] = "zh-CN";
+		item["format"] = format;
+		item["fileName"] = displayName + extension;
+		item["url"] = downloadURL;
+		ret.insertLast(item);
+	}
+}
+
 array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 {
 	InitLangMap();
@@ -471,7 +525,11 @@ array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 	string searchURL = SITE_URL + "/index.php?search=" + HostUrlEncode(title);
 	string html = HostUrlGetString(searchURL);
 
-	if (html.empty()) return ret;
+	if (html.empty())
+	{
+		AppendXunleiResults(title, ret);
+		return ret;
+	}
 
 	// Collect all candidate hrefs and titles
 	array<dictionary> candidates;
@@ -543,12 +601,19 @@ array<dictionary> SubtitleSearch(string MovieFileName, dictionary MovieMetaData)
 		count++;
 	}
 
+	AppendXunleiResults(title, ret);
+
 	return ret;
 }
 
 string SubtitleDownload(string id)
 {
 	InitLangMap();
+
+	if (id.findFirst(XUNLEI_ID_PREFIX) == 0)
+	{
+		return HostUrlGetString(id.substr(XUNLEI_ID_PREFIX.length()));
+	}
 
 	string detailURL = SITE_URL + "/" + id;
 	string html = HostUrlGetString(detailURL);
