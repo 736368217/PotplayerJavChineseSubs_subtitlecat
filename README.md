@@ -299,12 +299,13 @@ SubtitleCat 和迅雷使用独立的解析与下载分支，一个来源失败�
 本项目采用 [MIT License](LICENSE) 开源协议。
 
 ---
+
 ## Star History
 
 <a href="https://www.star-history.com/?repos=736368217%2FPotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&theme=dark&legend=top-left&sealed_token=bvdFN4vh1ZQyIdAfREZB4AsVCHRmEwo6k1VKj5DWJXtCU5fx4AIwMdpkpRJC57GWFhvc2cAZokOG6-qbDNnLI0icH-Q_t6PDi4rmCD2jbo5TwxzfSWmUn-M-udpwfH8Y19wUqm5Z6Lzf9vNbH1TQW5SLhq_mxj4mSj7Ywr7LlNC_oJMR3IUhm2J0QVE4" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left&sealed_token=bvdFN4vh1ZQyIdAfREZB4AsVCHRmEwo6k1VKj5DWJXtCU5fx4AIwMdpkpRJC57GWFhvc2cAZokOG6-qbDNnLI0icH-Q_t6PDi4rmCD2jbo5TwxzfSWmUn-M-udpwfH8Y19wUqm5Z6Lzf9vNbH1TQW5SLhq_mxj4mSj7Ywr7LlNC_oJMR3IUhm2J0QVE4" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left&sealed_token=bvdFN4vh1ZQyIdAfREZB4AsVCHRmEwo6k1VKj5DWJXtCU5fx4AIwMdpkpRJC57GWFhvc2cAZokOG6-qbDNnLI0icH-Q_t6PDi4rmCD2jbo5TwxzfSWmUn-M-udpwfH8Y19wUqm5Z6Lzf9vNbH1TQW5SLhq_mxj4mSj7Ywr7LlNC_oJMR3IUhm2J0QVE4" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&theme=dark&legend=top-left&sealed_token=ifKkU4rmvdCylt4XiBIi9ysCqPN_HgfdAVUXq5FoJn8MZ3p4rYSfknJbG-uaX2exgYct6eNoCe1Ir3cGn-iLgR2WwcqB6-Gjq_IX1wZoUypCeKZZjCMeIQ" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left&sealed_token=ifKkU4rmvdCylt4XiBIi9ysCqPN_HgfdAVUXq5FoJn8MZ3p4rYSfknJbG-uaX2exgYct6eNoCe1Ir3cGn-iLgR2WwcqB6-Gjq_IX1wZoUypCeKZZjCMeIQ" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=736368217/PotplayerJavChineseSubs_subtitlecat&type=date&legend=top-left&sealed_token=ifKkU4rmvdCylt4XiBIi9ysCqPN_HgfdAVUXq5FoJn8MZ3p4rYSfknJbG-uaX2exgYct6eNoCe1Ir3cGn-iLgR2WwcqB6-Gjq_IX1wZoUypCeKZZjCMeIQ" />
  </picture>
 </a>
